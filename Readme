@@ -1,0 +1,76 @@
+````markdown
+# Walle
+
+**Walle** is a modern, minimal macOS application that lets you apply high-quality animated video wallpapers to your desktop. It supports local and online sources, optimized playback, and seamless desktop integration—all for free.
+
+---
+
+## Features
+
+- 🔁 **Looping Video Wallpapers** — Apply any `.mp4`, `.mov`, or `.webm` file as your desktop background
+- 💾 **Local & Online Support** — Import your own wallpapers or download curated videos from online sources
+- 🖥️ **Multi-Monitor Support** — Automatically detects and applies wallpapers across all connected displays
+- 📁 **Download Manager** — Resume, pause, and track progress of wallpaper downloads
+- 🧠 **Memory-Efficient Playback** — Optimized for low CPU/GPU usage
+- 🎞️ **Live Previews** — View video previews with resolution and duration before applying
+- 🧩 **Modular Backend** — Clean architecture built with AppKit, SwiftData, and AVFoundation
+- 🧰 **Persistent Storage** — All wallpapers and settings are stored and restored on relaunch
+- 📦 **Startup Launch Support** — Optional setting to run in background on login
+- 🧼 **Minimal UI** — Inspired by Wallpaper Engine with native macOS design principles
+
+---
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/zahintapadar/Walle.git
+   cd Walle
+````
+
+2. Open the project in Xcode:
+
+   ```bash
+   open Walle.xcodeproj
+   ```
+
+3. Build and run.
+
+---
+
+## Project Structure
+
+* `WallpaperModel.swift` — SwiftData model for wallpaper metadata
+* `VideoDownloader.swift` — Handles async downloads with pause/resume
+* `WallpaperRenderer.swift` — AVPlayer-based video renderer for desktop
+* `WallpaperStorageManager.swift` — Manages local files and thumbnails
+* `WindowManager.swift` — Creates background-level window across screens
+* `WallpaperController.swift` — Main coordinator for all services
+* `LocalWallpaperImporter.swift` — Imports and validates user videos
+* `AppConfiguration.swift` — Manages preferences and user settings
+
+---
+
+## Roadmap
+
+* [ ] Online wallpaper browser (via motionbgs.com or similar)
+* [ ] Drag-and-drop import to main window
+* [ ] Search and tagging system
+* [ ] Battery-saving mode
+* [ ] Screensaver mode (optional)
+
+---
+
+## License
+
+MIT License
+
+---
+
+## Credits
+
+* Built using AppKit, SwiftData, AVFoundation
+* Wallpaper previews and sources optionally fetched from [motionbgs.com](https://motionbgs.com)
+
+```
+```
