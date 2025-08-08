@@ -1,4 +1,4 @@
-````markdown
+
 # Walle
 
 **Walle** is a modern, minimal macOS application that lets you apply high-quality animated video wallpapers to your desktop. It supports local and online sources, optimized playback, and seamless desktop integration—all for free.
@@ -73,4 +73,4 @@ MIT License
 * Wallpaper previews and sources optionally fetched from [motionbgs.com](https://motionbgs.com)
 
 ```
-```
+
