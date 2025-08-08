@@ -61,7 +61,7 @@ final class PreviewPanelViewController: NSViewController {
         // store preview layer holder
         self.playerLayer = AVPlayerLayer()
         self.playerLayer?.videoGravity = .resizeAspectFill
-        preview.layer?.addSublayer(self.playerLayer!)
+    preview.layer?.addSublayer(self.playerLayer!)
 
         applyButton.target = self
         applyButton.action = #selector(applyTapped)

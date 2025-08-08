@@ -33,9 +33,15 @@ final class MainWindowController: NSWindowController, NSToolbarDelegate {
             self?.previewVC.configure(with: url, title: model.title)
         }
         previewVC.onApply = { [weak self] url, mode in
-            switch mode { case .fit: WallpaperRenderer.shared.setAspect(.fit); case .fill: WallpaperRenderer.shared.setAspect(.fill); case .original: WallpaperRenderer.shared.setAspect(.original) }
-            self?.coordinator.apply(url: url)
-            self?.sidebarVC.reload() // reflect applied state
+            DispatchQueue.main.async {
+                switch mode {
+                case .fit: WallpaperRenderer.shared.setAspect(.fit)
+                case .fill: WallpaperRenderer.shared.setAspect(.fill)
+                case .original: WallpaperRenderer.shared.setAspect(.original)
+                }
+                self?.coordinator.apply(url: url)
+                self?.sidebarVC.reload() // reflect applied state
+            }
         }
 
         setupWindow()
@@ -189,7 +195,7 @@ final class MainWindowController: NSWindowController, NSToolbarDelegate {
 
     @objc private func applySelected() {
         if let selected = sidebarVC.currentSelection, let url = selected.localFileURL {
-            coordinator.apply(url: url)
+            DispatchQueue.main.async { self.coordinator.apply(url: url) }
         }
     }
 

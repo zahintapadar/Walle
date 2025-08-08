@@ -12,7 +12,11 @@ final class VideoDownloader: NSObject, URLSessionDownloadDelegate {
 
     private lazy var session: URLSession = {
         let config = URLSessionConfiguration.default
-        return URLSession(configuration: config, delegate: self, delegateQueue: .main)
+        // Use a background delegate queue to avoid blocking the main thread
+        let queue = OperationQueue()
+        queue.qualityOfService = .utility
+        queue.maxConcurrentOperationCount = 1
+        return URLSession(configuration: config, delegate: self, delegateQueue: queue)
     }()
 
     private var progressHandlers: [URLSessionTask: ProgressHandler] = [:]
@@ -36,16 +40,16 @@ final class VideoDownloader: NSObject, URLSessionDownloadDelegate {
             try? FileManager.default.removeItem(at: dest)
             try FileManager.default.moveItem(at: location, to: dest)
 
-            completion(.success(dest))
+            DispatchQueue.main.async { completion(.success(dest)) }
         } catch {
-            completion(.failure(error))
+            DispatchQueue.main.async { completion(.failure(error)) }
         }
     }
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let error = error {
             let completion = completionHandlers.removeValue(forKey: task) ?? { _ in }
-            completion(.failure(error))
+            DispatchQueue.main.async { completion(.failure(error)) }
         }
         progressHandlers.removeValue(forKey: task)
     }
@@ -53,6 +57,8 @@ final class VideoDownloader: NSObject, URLSessionDownloadDelegate {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         guard totalBytesExpectedToWrite > 0 else { return }
         let progress = Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
-        progressHandlers[downloadTask]?(progress)
+        if let handler = progressHandlers[downloadTask] {
+            DispatchQueue.main.async { handler(progress) }
+        }
     }
 }

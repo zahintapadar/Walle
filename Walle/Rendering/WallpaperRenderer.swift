@@ -28,6 +28,7 @@ final class WallpaperRenderer {
     }
 
     func setAspect(_ mode: AspectMode) {
+        if !Thread.isMainThread { return DispatchQueue.main.async { self.setAspect(mode) } }
         aspectMode = mode
         // Update all layers
         for (_, layer) in playerLayers {
@@ -41,6 +42,7 @@ final class WallpaperRenderer {
     }
 
     func playOnAllScreens(url: URL) {
+        if !Thread.isMainThread { return DispatchQueue.main.async { self.playOnAllScreens(url: url) } }
         // Stop current
         stopAll()
         // Build new shared player
@@ -58,11 +60,11 @@ final class WallpaperRenderer {
     }
 
     private func reattachLayers() {
+        if !Thread.isMainThread { return DispatchQueue.main.async { self.reattachLayers() } }
         guard let player else { return }
-        // Remove old layers
-        for layer in playerLayers.values { layer.removeFromSuperlayer() }
-        playerLayers.removeAll()
-        // Attach new layers to each window
+    // Remove and rebuild per-screen player layers only
+    for (key, layer) in playerLayers { layer.removeFromSuperlayer(); playerLayers.removeValue(forKey: key) }
+    // Attach new layers to each window
         for screen in NSScreen.screens {
             let key = ObjectIdentifier(screen)
             guard let window = WindowManager.shared.window(for: screen), let contentView = window.contentView else { continue }
@@ -74,7 +76,10 @@ final class WallpaperRenderer {
             }
             CATransaction.begin(); CATransaction.setDisableActions(true)
             layer.frame = contentView.bounds
-            contentView.layer?.sublayers?.forEach { $0.removeFromSuperlayer() }
+            // Ensure a backing layer exists
+            if contentView.layer == nil { contentView.wantsLayer = true }
+            // Remove previous player layers to avoid stacking
+            contentView.layer?.sublayers?.filter { $0 is AVPlayerLayer }.forEach { $0.removeFromSuperlayer() }
             contentView.layer?.addSublayer(layer)
             CATransaction.commit()
             playerLayers[key] = layer
@@ -92,6 +97,7 @@ final class WallpaperRenderer {
     }
 
     private func stopAll() {
+        if !Thread.isMainThread { return DispatchQueue.main.async { self.stopAll() } }
         for layer in playerLayers.values { layer.removeFromSuperlayer() }
         playerLayers.removeAll()
         player?.pause()
@@ -101,6 +107,11 @@ final class WallpaperRenderer {
 
     func pauseAll() { player?.pause() }
     func resumeAll() { player?.play() }
+
+    // Reassert current player layers onto windows without changing aspect
+    func reassert() {
+        reattachLayers()
+    }
 
     @objc private func windowResized(_ notification: Notification) {
         guard let window = notification.object as? NSWindow, let screen = window.screen else { return }

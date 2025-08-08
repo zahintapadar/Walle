@@ -16,12 +16,17 @@ struct WalleApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AppKitMainWindow()
+            AppKitTabsHost()
         }
         .modelContainer(provider.container)
         .commands {
             CommandGroup(replacing: .appSettings) {
                 Button("Preferences…") { PreferencesWindowController.shared.show() }.keyboardShortcut(",")
+            }
+            CommandMenu("Aspect") {
+                Button("Fit") { WallpaperRenderer.shared.setAspect(.fit) }
+                Button("Fill") { WallpaperRenderer.shared.setAspect(.fill) }
+                Button("Original") { WallpaperRenderer.shared.setAspect(.original) }
             }
         }
     }
@@ -29,7 +34,6 @@ struct WalleApp: App {
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
-
     func applicationDidFinishLaunching(_ notification: Notification) {
         // Status bar item
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -41,6 +45,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let ctx = ModelContainerProvider.shared.context
         let coordinator = WallpaperCoordinator(modelContext: ctx)
         coordinator.reapplyLastIfAvailable()
+
+        // Bring the SwiftUI-hosted window to front
+        DispatchQueue.main.async {
+            NSApp.activate(ignoringOtherApps: true)
+            NSApplication.shared.windows.first?.makeKeyAndOrderFront(nil)
+        }
     }
 
     private func makeMenu() -> NSMenu {
@@ -54,33 +64,41 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc private func openMainWindow() {
-        let ctx = ModelContainerProvider.shared.context
-        let controller = MainWindowController(modelContext: ctx)
-        controller.showWindow(nil)
         NSApp.activate(ignoringOtherApps: true)
+        NSApplication.shared.windows.first?.makeKeyAndOrderFront(nil)
     }
 
     @objc private func openPreferences() { PreferencesWindowController.shared.show() }
     @objc private func quit() { NSApp.terminate(nil) }
 }
 
-private struct AppKitMainWindow: NSViewControllerRepresentable {
+// Hosts the AppKit tab UI in a SwiftUI WindowGroup so we get a single, non-blank window.
+private struct AppKitTabsHost: NSViewControllerRepresentable {
     func makeNSViewController(context: Context) -> NSViewController {
-        let controller = BridgedMainController()
-        return controller
+        // Try common runtime names
+        let candidates = [
+            "WallpaperTabViewController",
+            "Walle.WallpaperTabViewController"
+        ]
+        for name in candidates {
+            if let cls = NSClassFromString(name) as? NSViewController.Type {
+                return cls.init()
+            }
+        }
+        // Visible fallback so the window isn't blank, with a hint for target membership
+        let vc = NSViewController()
+        let label = NSTextField(labelWithString: "UI failed to load. Ensure UI/*.swift are in the Walle target.")
+        label.alignment = .center
+        label.textColor = .secondaryLabelColor
+        label.translatesAutoresizingMaskIntoConstraints = false
+        vc.view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor)
+        ])
+        return vc
     }
     func updateNSViewController(_ nsViewController: NSViewController, context: Context) {}
 }
 
-private final class BridgedMainController: NSViewController {
-    private var windowController: MainWindowController?
 
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        if windowController == nil {
-            let ctx = ModelContainerProvider.shared.context
-            windowController = MainWindowController(modelContext: ctx)
-            windowController?.showWindow(nil)
-        }
-    }
-}

@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D0SPMBLD2E459D3A00017664B /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = D0SPMPROD2E459D3A00017664B /* SwiftSoup */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D0C2BFAD2E459D390017664B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,12 +28,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D0043E932E45BA6F003F55D4 /* WalleScreensaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalleScreensaver.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C2BF9C2E459D370017664B /* Walle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Walle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C2BFAC2E459D390017664B /* WalleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C2BFB62E459D390017664B /* WalleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		D0043E942E45BA6F003F55D4 /* WalleScreensaver */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WalleScreensaver;
+			sourceTree = "<group>";
+		};
 		D0C2BF9E2E459D370017664B /* Walle */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Walle;
@@ -48,10 +58,18 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D0043E902E45BA6F003F55D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0C2BF992E459D370017664B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0SPMBLD2E459D3A00017664B /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +96,7 @@
 				D0C2BF9E2E459D370017664B /* Walle */,
 				D0C2BFAF2E459D390017664B /* WalleTests */,
 				D0C2BFB92E459D390017664B /* WalleUITests */,
+				D0043E942E45BA6F003F55D4 /* WalleScreensaver */,
 				D0C2BF9D2E459D370017664B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,13 +107,47 @@
 				D0C2BF9C2E459D370017664B /* Walle.app */,
 				D0C2BFAC2E459D390017664B /* WalleTests.xctest */,
 				D0C2BFB62E459D390017664B /* WalleUITests.xctest */,
+				D0043E932E45BA6F003F55D4 /* WalleScreensaver.saver */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		D0043E8E2E45BA6F003F55D4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		D0043E922E45BA6F003F55D4 /* WalleScreensaver */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0043E9B2E45BA6F003F55D4 /* Build configuration list for PBXNativeTarget "WalleScreensaver" */;
+			buildPhases = (
+				D0043E8E2E45BA6F003F55D4 /* Headers */,
+				D0043E8F2E45BA6F003F55D4 /* Sources */,
+				D0043E902E45BA6F003F55D4 /* Frameworks */,
+				D0043E912E45BA6F003F55D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				D0043E942E45BA6F003F55D4 /* WalleScreensaver */,
+			);
+			name = WalleScreensaver;
+			packageProductDependencies = (
+			);
+			productName = WalleScreensaver;
+			productReference = D0043E932E45BA6F003F55D4 /* WalleScreensaver.saver */;
+			productType = "com.apple.product-type.bundle";
+		};
 		D0C2BF9B2E459D370017664B /* Walle */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0C2BFC02E459D390017664B /* Build configuration list for PBXNativeTarget "Walle" */;
@@ -112,6 +165,7 @@
 			);
 			name = Walle;
 			packageProductDependencies = (
+				D0SPMPROD2E459D3A00017664B /* SwiftSoup */,
 			);
 			productName = Walle;
 			productReference = D0C2BF9C2E459D370017664B /* Walle.app */;
@@ -173,6 +227,9 @@
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					D0043E922E45BA6F003F55D4 = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					D0C2BF9B2E459D370017664B = {
 						CreatedOnToolsVersion = 16.4;
 					};
@@ -199,15 +256,26 @@
 			productRefGroup = D0C2BF9D2E459D370017664B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
+			packageReferences = (
+				D0SPMPKG2E459D3A00017664B /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			targets = (
 				D0C2BF9B2E459D370017664B /* Walle */,
 				D0C2BFAB2E459D390017664B /* WalleTests */,
 				D0C2BFB52E459D390017664B /* WalleUITests */,
+				D0043E922E45BA6F003F55D4 /* WalleScreensaver */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D0043E912E45BA6F003F55D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0C2BF9A2E459D370017664B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +300,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D0043E8F2E45BA6F003F55D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0C2BF982E459D370017664B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -269,6 +344,42 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		D0043E992E45BA6F003F55D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = WalleScreensaverView;
+				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = brew.org.WalleScreensaver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Debug;
+		};
+		D0043E9A2E45BA6F003F55D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = WalleScreensaverView;
+				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = brew.org.WalleScreensaver;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Release;
+		};
 		D0C2BFBE2E459D390017664B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -503,9 +614,36 @@
 			};
 			name = Release;
 		};
+/* Begin XCRemoteSwiftPackageReference section */
+		D0SPMPKG2E459D3A00017664B /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D0SPMPROD2E459D3A00017664B /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0SPMPKG2E459D3A00017664B /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D0043E9B2E45BA6F003F55D4 /* Build configuration list for PBXNativeTarget "WalleScreensaver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0043E992E45BA6F003F55D4 /* Debug */,
+				D0043E9A2E45BA6F003F55D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D0C2BF972E459D370017664B /* Build configuration list for PBXProject "Walle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

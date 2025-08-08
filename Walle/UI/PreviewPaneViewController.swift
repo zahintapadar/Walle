@@ -106,6 +106,13 @@ final class PreviewPaneViewController: NSViewController {
         case 1: mode = .fill
         default: mode = .original
         }
-        onApply?(url, mode)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.applyButton.isEnabled = false
+            self.onApply?(url, mode)
+            self.applyButton.isEnabled = true
+            let prefs = PreferencesStore.load()
+            if prefs.hideAppAfterApply { self.view.window?.miniaturize(nil) }
+        }
     }
 }
